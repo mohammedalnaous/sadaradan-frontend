@@ -1,7 +1,18 @@
-import type { NextConfig } from "next";
+// next.config.ts
+import { Configuration } from 'webpack';
+import withNextIntl from 'next-intl/plugin';
 
-const nextConfig: NextConfig = {
-  /* config options here */
+const pluginConfig = {
+  // This tells next-intl where to load `locale` config from
+  requestConfig: './src/i18n/request.ts'
 };
 
-export default nextConfig;
+const nextConfig = {
+  reactStrictMode: true,
+  webpack: (config: Configuration) => {
+    config.experiments = { topLevelAwait: true, layers: true };
+    return config;
+  }
+};
+
+export default withNextIntl(pluginConfig)(nextConfig);

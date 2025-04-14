@@ -1,0 +1,207 @@
+{
+  "register": {
+    "title": "Create an account",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "mobile": "Mobile",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "button": "Register"
+  },
+  "smartFilters": {
+  "filters": [
+    "Last 24 Hours",
+    "Urgent",
+    "Price Drop",
+    "Most Viewed"
+  ]
+},
+  "heroBanner": {
+    "banners": [
+      {
+        "title": "Download the SADARADAN App Today",
+        "subtitle": "Available on App Store & Google Play"
+      },
+      {
+        "title": "Post 1 Ad Free Every Week!",
+        "subtitle": "No fees. No commitments."
+      },
+      {
+        "title": "Welcome Gifts for New Users 🎁",
+        "subtitle": "Get started with a bonus!"
+      }
+    ]
+  },
+  "categoryShortcuts": {
+    "title": "Browse Categories",
+    "categories": [
+      "Cars",
+      "SUVs",
+      "Trucks",
+      "Buses",
+      "Equipment",
+      "Parts Shop",
+      "Luxury Line",
+      "Auction",
+      "Hybrid Cars",
+      "Electric Cars"
+    ]
+  },
+  "topBar": {
+    "searchPlaceholder": "e.g. Toyota Corolla 2023 Hybrid 50000km?",
+    "categoryLabel": "Cars",
+    "login": "🔐 Login",
+    "register": "📝 Register"
+  },
+  "featuredGrid": {
+    "title": "Featured Listings",
+    "items": [
+      {
+        "title": "2021 Audi A3",
+        "location": "Dubai",
+        "price": "$21,200"
+      },
+      {
+        "title": "Kia Sorento Hybrid",
+        "location": "South Korea",
+        "price": "$26,500"
+      },
+      {
+        "title": "Hyundai Elantra",
+        "location": "Damascus",
+        "price": "$10,000"
+      },
+      {
+        "title": "Peugeot 508",
+        "location": "Aleppo",
+        "price": "$11,500"
+      }
+    ]
+  },
+  "promoAds": {
+    "items": [
+      "Download the SADARADAN App",
+      "Post 1 Ad Free",
+      "Welcome Gifts for New Users",
+      "Monthly Giveaway for Sellers"
+    ]
+  },
+  "adviceSection": {
+    "title": "Selling Tips & Advice",
+    "moreButton": "View More Articles",
+    "articles": [
+      {
+        "title": "How to Sell Fast in 3 Days",
+        "date": "Apr 10",
+        "image": "advise1.jpg"
+      },
+      {
+        "title": "Best Photos for More Clicks",
+        "date": "Apr 5",
+        "image": "advise2.jpg"
+      },
+      {
+        "title": "First-Time Seller Checklist",
+        "date": "Apr 1",
+        "image": "advise3.jpg"
+      }
+    ]
+  },
+  "floatingPostAd": {
+  "button": "Post Listing"
+},
+"popularTags": {
+  "title": "Popular Tags",
+  "tags": [
+    "Toyota",
+    "SUV",
+    "Urgent",
+    "Electric",
+    "Dubai",
+    "Low Mileage",
+    "Luxury",
+    "Hybrid",
+    "Chevrolet",
+    "Damascus"
+  ]
+},
+"footer": {
+  "groups": {
+    "corporate": "Corporate",
+    "services": "Services",
+    "dealers": "Dealers",
+    "help": "Help Center"
+  },
+  "links": {
+    "corporate": ["About Us", "Our Team", "Careers", "Investors"],
+    "services": ["How It Works", "Pricing", "Premium Plans", "Features"],
+    "dealers": ["Dealer Login", "Dealer Plans", "Success Stories", "Support"],
+    "help": ["Contact", "Privacy Policy", "Terms of Use", "FAQ"]
+  }
+},
+"statsSection": {
+  "stats": [
+    { "value": "4500+", "label": "Clients Served" },
+    { "value": "2750+", "label": "Happy Customers" },
+    { "value": "600+", "label": "Vehicles In Stock" },
+    { "value": "12+", "label": "Years of Experience" }
+  ]
+},
+"savedSearch": {
+  "title": "Saved Searches"
+},
+"searchTool": {
+  "title": "Find your car",
+  "city": "City",
+  "brand": "Brand",
+  "series": "Series",
+  "model": "Model",
+  "km": "K.M",
+  "minPrice": "Min Price",
+  "maxPrice": "Max Price",
+  "cash": "Cash",
+  "finance": "Finance",
+  "search": "Search Cars"
+},
+"browseByBrand": {
+  "title": "Browse by Brand"
+},
+"currentlyInDemand": {
+  "title": "Currently in Demand"
+},
+"comprehensiveServices": {
+  "title": "Comprehensive services ",
+  "financing": {
+    "title": "Financing",
+    "line1": "Completely  within few hours",
+    "line2": "Transparent, no fine print"
+  },
+  "carAudit": {
+    "title": "CarAudit™",
+    "line1": "Thorough vehicle check",
+    "line2": "Qualified mechanics and technicians"
+  },
+  "delivery": {
+    "title": "Delivery",
+    "line1": "To your doorstep or a Pick-up Point",
+    "line2": "Unbeatable price"
+  },
+  "warranty": {
+    "title": "Warranty",
+    "line1": "Up to 12 months",
+    "line2": "For all vehicles"
+  },
+  "insurance": {
+    "title": "Insurance",
+    "line1": "Both third-party and comprehensive insurance",
+    "line2": "Great rates for everyone"
+  },
+  "registration": {
+    "title": "Vehicle registration",
+    "line1": "Everything from emission-test to MOT",
+    "line2": "Car registered in your name"
+  }
+}
+
+}
