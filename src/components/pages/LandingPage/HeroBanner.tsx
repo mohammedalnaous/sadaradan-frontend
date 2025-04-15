@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 
 const images = [
   '/banners/banner1.jpg',
@@ -14,12 +14,12 @@ type Banner = { title: string; subtitle: string };
 
 export default function HeroBanner() {
   const t = useTranslations('heroBanner');
+  const locale = useLocale();
   const [mounted, setMounted] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [banners, setBanners] = useState<Banner[]>([]);
 
   useEffect(() => {
-    // Load translated banner content client-side only
     const loaded = t.raw('banners') as Banner[];
     setBanners(loaded);
     setMounted(true);
@@ -32,8 +32,9 @@ export default function HeroBanner() {
     return () => clearInterval(interval);
   }, []);
 
-  // 🔒 Prevent render until both mounted and banners loaded
   if (!mounted || banners.length === 0) return null;
+
+  const currentBanner = banners[activeIndex];
 
   return (
     <div className="relative w-full h-[180px] md:h-[250px] lg:h-[300px] overflow-hidden">
@@ -51,12 +52,25 @@ export default function HeroBanner() {
             className="object-cover"
             priority={index === 0}
           />
-          {/* Text Overlay */}
-          <div className="absolute inset-0 bg-black/40 flex flex-col items-start justify-center px-4 md:px-10 text-white">
-            <h2 className="text-lg md:text-2xl font-bold mb-1">
-              {banners[index]?.title}
+
+          <div
+            className="absolute inset-0 bg-black/40 flex flex-col items-start justify-center px-4 md:px-10 text-white"
+            dir={locale === 'ar' ? 'rtl' : 'ltr'}
+          >
+            <h2
+              className={`text-lg md:text-2xl font-bold mb-1 whitespace-pre-wrap w-full ${
+                locale === 'ar' ? 'text-right font-cairo' : 'text-left'
+              }`}
+            >
+              {currentBanner?.title}
             </h2>
-            <p className="text-xs md:text-base">{banners[index]?.subtitle}</p>
+            <p
+              className={`text-xs md:text-base whitespace-pre-wrap w-full ${
+                locale === 'ar' ? 'text-right font-cairo' : 'text-left'
+              }`}
+            >
+              {currentBanner?.subtitle}
+            </p>
           </div>
         </div>
       ))}

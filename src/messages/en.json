@@ -1,13 +1,21 @@
 {
   "register": {
-    "title": "Create an account",
+    "title": "Create an Account",
     "firstName": "First Name",
     "lastName": "Last Name",
     "email": "Email",
-    "mobile": "Mobile",
+    "mobile": "Mobile Number",
     "password": "Password",
     "confirmPassword": "Confirm Password",
-    "button": "Register"
+    "submit": "Register",
+    "loading": "Registering...",
+    "success": "Registration successful",
+    "fail": "Registration failed",
+    "passwordRules": "Password must include:",
+    "rule1": "At least 8 characters",
+    "rule2": "Uppercase & lowercase letters",
+    "rule3": "A number",
+    "rule4": "A special character"
   },
   "smartFilters": {
   "filters": [
@@ -149,7 +157,8 @@
   ]
 },
 "savedSearch": {
-  "title": "Saved Searches"
+    "title": "Saved Searches",
+    "empty": "No saved searches found"
 },
 "searchTool": {
   "title": "Find your car",

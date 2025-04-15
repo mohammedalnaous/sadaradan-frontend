@@ -3,14 +3,12 @@
 import { useTranslations } from 'next-intl';
 import { Heart } from 'lucide-react';
 
-export default function SavedSearch() {
-  const t = useTranslations('savedSearch');
+type SavedSearchProps = {
+  savedSearches: string[];
+};
 
-  const savedSearches = [
-    'Toyota SUV < 50,000km',
-    'Hyundai under $10k',
-    'BMW Diesel',
-  ];
+export default function SavedSearch({ savedSearches }: SavedSearchProps) {
+  const t = useTranslations('savedSearch');
 
   return (
     <div className="relative group">
@@ -20,14 +18,20 @@ export default function SavedSearch() {
       </button>
 
       <div className="absolute right-0 mt-2 bg-white border rounded-md shadow-md w-64 p-2 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-all z-50">
-        {savedSearches.map((search, index) => (
-          <div
-            key={index}
-            className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
-          >
-            {search}
+        {savedSearches.length > 0 ? (
+          savedSearches.map((search, index) => (
+            <div
+              key={index}
+              className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+            >
+              {search}
+            </div>
+          ))
+        ) : (
+          <div className="px-4 py-2 text-sm text-gray-500 italic">
+            {t('empty')}
           </div>
-        ))}
+        )}
       </div>
     </div>
   );

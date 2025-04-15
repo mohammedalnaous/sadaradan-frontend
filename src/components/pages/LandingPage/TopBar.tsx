@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { Menu, Globe, Search, User, Heart } from 'lucide-react';
+import { Menu, Globe, Search, User } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import SavedSearch from './SavedSearch';
 
@@ -14,7 +14,8 @@ export default function TopBar() {
   const [categoryLabel, setCategoryLabel] = useState('');
   const [loginLabel, setLoginLabel] = useState('');
   const [registerLabel, setRegisterLabel] = useState('');
-  const [savedSearches, setSavedSearches] = useState<string[]>([]);  // Store saved searches
+  const [savedSearches, setSavedSearches] = useState<string[]>([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const locale = useLocale();
   const pathname = usePathname();
@@ -27,19 +28,32 @@ export default function TopBar() {
     setLoginLabel(t('login'));
     setRegisterLabel(t('register'));
     setMounted(true);
-    
-    // Fetch saved searches from an API or local storage
-    fetchSavedSearches();
+
+    // ✅ Check login status (based on your auth method)
+    const token = localStorage.getItem('accessToken');
+    if (token) {
+      setIsLoggedIn(true);
+      fetchSavedSearches(token);
+    }
   }, [t]);
 
-  const fetchSavedSearches = async () => {
-    // Fetch saved searches from an API endpoint or local storage
+  const fetchSavedSearches = async (token: string) => {
     try {
-      const response = await fetch('/api/saved-searches');  // Replace with actual endpoint
+      const response = await fetch('/api/saved-searches', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        console.warn('⚠️ Failed to fetch saved searches:', response.status);
+        return;
+      }
+
       const data = await response.json();
       setSavedSearches(data.savedSearches || []);
     } catch (error) {
-      console.error('Error fetching saved searches:', error);
+      console.error('❌ Error fetching saved searches:', error);
     }
   };
 
@@ -99,8 +113,10 @@ export default function TopBar() {
             {locale.toUpperCase()}
           </button>
 
-          {/* 💖 Saved Searches */}
-          <SavedSearch savedSearches={savedSearches} /> {/* Pass savedSearches to SavedSearch component */}
+          {/* 💖 Saved Searches (Only if logged in) */}
+          {isLoggedIn && (
+            <SavedSearch savedSearches={savedSearches} />
+          )}
 
           {/* User Menu */}
           <div className="relative group">
