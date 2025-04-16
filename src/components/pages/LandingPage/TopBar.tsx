@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { Menu, Globe, Search, User } from 'lucide-react';
@@ -16,11 +16,15 @@ export default function TopBar() {
   const [registerLabel, setRegisterLabel] = useState('');
   const [savedSearches, setSavedSearches] = useState<string[]>([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const [langMenuOpen, setLangMenuOpen] = useState(false);
 
   const locale = useLocale();
   const pathname = usePathname();
   const router = useRouter();
   const t = useTranslations('topBar');
+  const userMenuRef = useRef<HTMLDivElement>(null);
+  const langMenuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setPlaceholder(t('searchPlaceholder'));
@@ -29,13 +33,34 @@ export default function TopBar() {
     setRegisterLabel(t('register'));
     setMounted(true);
 
-    // ✅ Check login status (based on your auth method)
     const token = localStorage.getItem('accessToken');
     if (token) {
       setIsLoggedIn(true);
       fetchSavedSearches(token);
     }
   }, [t]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        userMenuRef.current &&
+        !userMenuRef.current.contains(event.target as Node)
+      ) {
+        setUserMenuOpen(false);
+      }
+      if (
+        langMenuRef.current &&
+        !langMenuRef.current.contains(event.target as Node)
+      ) {
+        setLangMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   const fetchSavedSearches = async (token: string) => {
     try {
@@ -57,9 +82,9 @@ export default function TopBar() {
     }
   };
 
-  const toggleLocale = () => {
-    const newLocale = locale === 'en' ? 'ar' : 'en';
-    const newPath = `/${newLocale}${pathname.replace(/^\/(en|ar)/, '')}`;
+  const changeLocale = (targetLocale: 'en' | 'ar') => {
+    const newPath = `/${targetLocale}${pathname.replace(/^\/(en|ar)/, '')}`;
+    document.cookie = `NEXT_LOCALE=${targetLocale}; path=/; max-age=31536000`;
     router.push(newPath);
   };
 
@@ -104,37 +129,63 @@ export default function TopBar() {
 
         {/* Right Icons */}
         <div className="flex items-center gap-4">
-          {/* Language Toggle */}
-          <button
-            onClick={toggleLocale}
-            className="flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 transition"
-          >
-            <Globe className="mr-1" size={18} />
-            {locale.toUpperCase()}
-          </button>
+          {/* Language Dropdown */}
+          <div className="relative" ref={langMenuRef}>
+            <button
+              onClick={() => setLangMenuOpen(!langMenuOpen)}
+              className="flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 transition"
+            >
+              <Globe className="mr-1" size={18} />
+              {locale.toUpperCase()}
+            </button>
 
-          {/* 💖 Saved Searches (Only if logged in) */}
-          {isLoggedIn && (
-            <SavedSearch savedSearches={savedSearches} />
-          )}
+            {langMenuOpen && (
+              <div className="absolute right-0 mt-2 w-28 bg-white shadow-lg border rounded-md z-50">
+                <button
+                  onClick={() => changeLocale('en')}
+                  className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100"
+                >
+                   English
+                </button>
+                <button
+                  onClick={() => changeLocale('ar')}
+                  className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100"
+                >
+                   العربية
+                </button>
+              </div>
+            )}
+          </div>
+
+          {/* Saved Searches */}
+          {isLoggedIn && <SavedSearch savedSearches={savedSearches} />}
 
           {/* User Menu */}
-          <div className="relative group">
-            <User size={22} className="cursor-pointer" />
-            <div className="absolute right-0 mt-2 bg-white border rounded-md shadow-md w-40 p-2 opacity-0 group-hover:opacity-100 transition duration-150 pointer-events-none group-hover:pointer-events-auto">
-              <Link
-                href={`/${locale}/login`}
-                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-              >
-                {loginLabel}
-              </Link>
-              <Link
-                href={`/${locale}/register`}
-                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-              >
-                {registerLabel}
-              </Link>
-            </div>
+          <div className="relative" ref={userMenuRef}>
+            <button
+              onClick={() => setUserMenuOpen(!userMenuOpen)}
+              className="flex items-center"
+              aria-label="Toggle user menu"
+            >
+              <User size={22} className="cursor-pointer" />
+            </button>
+
+            {userMenuOpen && (
+              <div className="absolute right-0 mt-2 bg-white border rounded-md shadow-md w-40 p-2 z-50">
+                <Link
+                  href={`/${locale}/login`}
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                >
+                  {loginLabel}
+                </Link>
+                <Link
+                  href={`/${locale}/register`}
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                >
+                  {registerLabel}
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </div>

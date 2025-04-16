@@ -6,7 +6,7 @@ import { useTranslations, useLocale } from 'next-intl';
 import axios from '@/lib/axios';
 import ReCAPTCHA from 'react-google-recaptcha';
 import Image from 'next/image';
-import { Phone } from 'lucide-react';
+import { Phone, LogIn, Apple, Smartphone } from 'lucide-react';
 
 export default function RegisterForm() {
   const t = useTranslations('register');
@@ -89,6 +89,18 @@ export default function RegisterForm() {
     }
   };
 
+  const handleGoogle = () => {
+    window.location.href = `${process.env.NEXT_PUBLIC_API_BASE}/auth/google`;
+  };
+
+  const handleApple = () => {
+    window.location.href = `${process.env.NEXT_PUBLIC_API_BASE}/auth/apple`;
+  };
+
+  const handleOtp = () => {
+    router.push(`/${locale}/register/otp`);
+  };
+
   return (
     <div
       dir={locale === 'ar' ? 'rtl' : 'ltr'}
@@ -116,6 +128,33 @@ export default function RegisterForm() {
             height={120}
             priority
           />
+        </div>
+
+        {/* 🌍 Social Options */}
+        <div className="space-y-3">
+          <button
+            type="button"
+            onClick={handleGoogle}
+            className="w-full flex items-center justify-center gap-2 bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition"
+          >
+            <LogIn size={18} /> {t('google')}
+          </button>
+
+          <button
+            type="button"
+            onClick={handleApple}
+            className="w-full flex items-center justify-center gap-2 bg-black text-white px-4 py-2 rounded hover:bg-gray-800 transition"
+          >
+            <Apple size={18} /> {t('apple')}
+          </button>
+
+          <button
+            type="button"
+            onClick={handleOtp}
+            className="w-full flex items-center justify-center gap-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+          >
+            <Smartphone size={18} /> {t('otp')}
+          </button>
         </div>
 
         {/* 📝 Registration Form */}
@@ -147,22 +186,22 @@ export default function RegisterForm() {
           />
           <input
             name="email"
-           type="email"
-           placeholder={t('email')}
-           value={form.email}
-           onChange={handleChange}
-           className={`input input-bordered w-full ${locale === 'ar' ? 'text-right' : 'text-left'}`}
-           dir="ltr"
-           />
+            type="email"
+            placeholder={t('email')}
+            value={form.email}
+            onChange={handleChange}
+            className={`input input-bordered w-full ${locale === 'ar' ? 'text-right' : 'text-left'}`}
+            dir="ltr"
+          />
           <input
-           name="mobile"
-           type="tel"
-           placeholder={t('mobile')}
+            name="mobile"
+            type="tel"
+            placeholder={t('mobile')}
             value={form.mobile}
-           onChange={handleChange}
-           className={`input input-bordered w-full ${locale === 'ar' ? 'text-right' : 'text-left'}`}
-           dir="ltr"
-           />
+            onChange={handleChange}
+            className={`input input-bordered w-full ${locale === 'ar' ? 'text-right' : 'text-left'}`}
+            dir="ltr"
+          />
 
           <input
             name="password"
@@ -183,7 +222,6 @@ export default function RegisterForm() {
             required
           />
 
-          {/* 🔒 Password Rules */}
           <div className="text-sm text-gray-600 dark:text-gray-300 space-y-1">
             <p>{t('passwordRules')}</p>
             <ul className="list-disc ml-5 text-xs">
@@ -221,13 +259,12 @@ export default function RegisterForm() {
         </div>
 
         <div className="flex justify-between items-center flex-wrap gap-4">
-          {/* Left: Phone */}
           <p className="flex items-center gap-2 text-lg">
             <Phone size={50} className="text-[#C8A165]" />
             00905355982811
           </p>
 
-          {/* Right: Copyright */}
+
           <p className="text-2xl font-semibold text-right">
             sadaradan.com 2025 ©
           </p>

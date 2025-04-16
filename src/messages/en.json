@@ -15,7 +15,10 @@
     "rule1": "At least 8 characters",
     "rule2": "Uppercase & lowercase letters",
     "rule3": "A number",
-    "rule4": "A special character"
+    "rule4": "A special character",
+    "google": "Register with Google",
+    "apple": "Register with Apple",
+    "otp": "Register with Mobile (OTP)"
   },
   "smartFilters": {
   "filters": [

@@ -1,0 +1,15 @@
+{
+  "tailwindCSS.includeLanguages": {
+    "css": "html",
+    "postcss": "html",
+    "javascript": "javascript",
+    "typescript": "typescript",
+    "typescriptreact": "html"
+  },
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "tailwindCSS.emmetCompletions": true,
+  "css.validate": false,
+  "editor.formatOnSave": true
+}

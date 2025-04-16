@@ -3,16 +3,22 @@ import { Configuration } from 'webpack';
 import withNextIntl from 'next-intl/plugin';
 
 const pluginConfig = {
-  // This tells next-intl where to load `locale` config from
-  requestConfig: './src/i18n/request.ts'
+  requestConfig: './src/i18n/request.ts', // ✅ your messages loader
 };
 
 const nextConfig = {
   reactStrictMode: true,
+
+  // ❌ REMOVE this block completely when using App Router!
+  // i18n: {
+  //   locales: ['en', 'ar'],
+  //   defaultLocale: 'en',
+  // },
+
   webpack: (config: Configuration) => {
     config.experiments = { topLevelAwait: true, layers: true };
     return config;
-  }
+  },
 };
 
 export default withNextIntl(pluginConfig)(nextConfig);
