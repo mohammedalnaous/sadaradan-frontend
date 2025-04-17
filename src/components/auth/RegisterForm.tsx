@@ -90,11 +90,11 @@ export default function RegisterForm() {
   };
 
   const handleGoogle = () => {
-    window.location.href = `${process.env.NEXT_PUBLIC_API_BASE}/auth/google`;
+    window.location.href = `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/google`;
   };
 
   const handleApple = () => {
-    window.location.href = `${process.env.NEXT_PUBLIC_API_BASE}/auth/apple`;
+    window.location.href = `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/apple`;
   };
 
   const handleOtp = () => {
@@ -135,10 +135,16 @@ export default function RegisterForm() {
           <button
             type="button"
             onClick={handleGoogle}
-            className="w-full flex items-center justify-center gap-2 bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition"
-          >
-            <LogIn size={18} /> {t('google')}
-          </button>
+            className="w-full flex items-center justify-center gap-2 border border-gray-400 text-black font-medium px-4 py-2 rounded-full bg-white hover:shadow-md transition dark:bg-gray-900 dark:text-white"
+            >
+
+            <img
+           src="/google-logo.png"
+           alt="Google"
+            className="w-5 h-5"
+            />
+           <span>Sign up / Sign in with Google</span>
+           </button>
 
           <button
             type="button"

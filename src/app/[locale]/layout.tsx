@@ -1,9 +1,10 @@
+import '../globals.css';
 import { notFound } from 'next/navigation';
 import { getMessages } from 'next-intl/server';
 import { NextIntlClientProvider } from 'next-intl';
+import { Toaster } from 'react-hot-toast';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
-import '../globals.css';
 
 const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'] });
 const geistMono = Geist_Mono({ variable: '--font-geist-mono', subsets: ['latin'] });
@@ -13,25 +14,49 @@ export const metadata: Metadata = {
   description: 'Multilingual classified platform',
 };
 
-export default async function LocaleLayout({
+// ✅ Static wrapper layout
+export default function Layout({
   children,
   params,
 }: {
   children: React.ReactNode;
-  params: { locale: string }; // ✅ FIXED
+  params: { locale: string };
 }) {
-  const messages = await getMessages({ locale: params.locale });
+  return <LocaleLoader locale={params.locale}>{children}</LocaleLoader>;
+}
 
-  if (!messages) notFound();
+// ✅ Async loader for translations
+async function LocaleLoader({
+  locale,
+  children,
+}: {
+  locale: string;
+  children: React.ReactNode;
+}) {
+  let messages;
+  try {
+    messages = await getMessages({ locale });
+  } catch (err) {
+    console.error(`❌ Failed to load translations for locale: ${locale}`, err);
+    notFound();
+  }
 
   return (
-    <NextIntlClientProvider locale={params.locale} messages={messages}>
-      <div
+    <html lang={locale}>
+      <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        dir={params.locale === 'ar' ? 'rtl' : 'ltr'}
+        dir={locale === 'ar' ? 'rtl' : 'ltr'}
       >
-        {children}
-      </div>
-    </NextIntlClientProvider>
+        <Toaster position="top-center" />
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          {children}
+        </NextIntlClientProvider>
+      </body>
+    </html>
   );
+}
+
+// ✅ Generate routes for each supported locale
+export async function generateStaticParams() {
+  return [{ locale: 'en' }, { locale: 'ar' }];
 }

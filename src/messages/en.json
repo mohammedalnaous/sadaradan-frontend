@@ -16,7 +16,7 @@
     "rule2": "Uppercase & lowercase letters",
     "rule3": "A number",
     "rule4": "A special character",
-    "google": "Register with Google",
+    "google": "Register/ Sign in with Google",
     "apple": "Register with Apple",
     "otp": "Register with Mobile (OTP)"
   },
@@ -61,8 +61,10 @@
   },
   "topBar": {
     "searchPlaceholder": "e.g. Toyota Corolla 2023 Hybrid 50000km?",
-    "categoryLabel": "Cars",
+    "categoryLabel": "All Categories",
     "login": "🔐 Login",
+    "logout": "Logout",
+    "logoutConfirm": "Are you sure you want to log out?",
     "register": "📝 Register"
   },
   "featuredGrid": {
@@ -214,6 +216,23 @@
     "line1": "Everything from emission-test to MOT",
     "line2": "Car registered in your name"
   }
-}
+},
+ "completeProfile": {
+  "title": "Complete Your Profile",
+  "mobile": "Mobile Number",
+  "password": "Create Password",
+  "confirmPassword": "Confirm Password",
+  "submit": "Finish Registration",
+  "loading": "Saving...",
+  "passwordRules": "Password must include:",
+  "rule1": "At least 8 characters",
+  "rule2": "Uppercase & lowercase letters",
+  "rule3": "A number",
+  "rule4": "A special character",
+  "passwordMismatch": "Passwords do not match"
+},
 
+  "logoutConfirm": "Are you sure you want to log out?",
+  "confirm": "Yes",
+   "cancel": "Cancel"
 }
